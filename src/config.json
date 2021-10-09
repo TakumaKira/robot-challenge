@@ -1,0 +1,9 @@
+{
+  "TABLE_SIZE": 5,
+  "QUIT_COMMAND": "q",
+  "TEST_DATA_FLAG": "--testData",
+  "TEST_DATA_DIR": "src/testData",
+  "OUTPUT_PREFIX": "Output: ",
+  "INVALID_COMMAND_MESSAGE": "The command is invalid.",
+  "INVALID_POSITION_MESSAGE": "The potision is invalid."
+}

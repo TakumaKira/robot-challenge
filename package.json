@@ -1,0 +1,23 @@
+{
+  "name": "robot-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx ts-node src/index.ts",
+    "testData": "npx ts-node src/index.ts --testData",
+    "test": "jest --watchAll"
+  },
+  "author": "Takuma Kira",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.10.3",
+    "jest": "^27.2.4",
+    "mock-stdin": "^1.0.0",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
+    "tsc": "^2.0.3",
+    "typescript": "^4.4.3"
+  }
+}

@@ -1,0 +1,4 @@
+PLACE 5,5,NORTH
+PLACE 0,0,NORTH
+REPORT
+Output: ["The command is invalid.","0,0,NORTH"]
