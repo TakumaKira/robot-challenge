@@ -1,37 +1,18 @@
-import Command from "../classes/command";
 import CommandType from "../constants/commandType";
 import NEEDS_PLACE_COMMAND_FIRST from "../constants/needsPlaceCommandFirst";
-
-export interface RobotPosition {
-  move(): void;
-  rotateL(): void;
-  rotateR(): void;
-  report(): string;
-}
+import Logger from "../functions/logger";
+import CommandBase from "./commands/commandBase";
+import Position from "./position";
 
 export default class Robot {
-  private position?: RobotPosition;
+  private position?: Position;
   
-  input(command: Command): string | void {
+  input(command: CommandBase<any>) {
     if (!this.position && command.type !== CommandType.PLACE) {
-      return NEEDS_PLACE_COMMAND_FIRST;
+      Logger.log(NEEDS_PLACE_COMMAND_FIRST);
+      return;
     }
     
-    switch (command.type) {
-      case CommandType.PLACE:
-        this.position = command.position;
-        return;
-      case CommandType.MOVE:
-        this.position!.move();
-        return;
-      case CommandType.LEFT:
-        this.position!.rotateL();
-        return;
-      case CommandType.RIGHT:
-        this.position!.rotateR();
-        return;
-      case CommandType.REPORT:
-        return this.position!.report();
-    }
+    this.position = command.execute(this.position!)!;
   }
 }

@@ -1,5 +1,5 @@
 import mockStdin from 'mock-stdin';
-import { INVALID_COMMAND_MESSAGE, QUIT_COMMAND, TABLE_SIZE } from './config.json';
+import { INVALID_POSITION_MESSAGE, QUIT_COMMAND, TABLE_SIZE } from './config.json';
 import CommandType from './constants/commandType';
 import FaceType from './constants/faceType';
 import NEEDS_PLACE_COMMAND_FIRST from './constants/needsPlaceCommandFirst';
@@ -26,7 +26,7 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenCalledWith(`${formatOutput(3, 3, FaceType.NORTH)}`);
+    expect(consoleSpy).toHaveBeenLastCalledWith(`${formatOutput(3, 3, FaceType.NORTH)}`);
   });
 
   test(`should report ${formatOutput(4, 4, FaceType.SOUTH)} after ${CommandType.PLACE} 0,0,${FaceType.NORTH} -> ${CommandType.PLACE} 4,4,${FaceType.SOUTH}`, async () => {
@@ -37,7 +37,7 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenCalledWith(`${formatOutput(4, 4, FaceType.SOUTH)}`);
+    expect(consoleSpy).toHaveBeenLastCalledWith(`${formatOutput(4, 4, FaceType.SOUTH)}`);
   });
 
   test(`should discard first ${CommandType.PLACE} command if it is going to place the robot out of the table`, async () => {
@@ -46,7 +46,7 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenCalledWith(INVALID_COMMAND_MESSAGE);
+    expect(consoleSpy).toHaveBeenLastCalledWith(INVALID_POSITION_MESSAGE);
   });
   test(`should discard ${CommandType.PLACE} command if it is going to place the robot out of the table`, async () => {
     setTimeout(() => {
@@ -55,7 +55,7 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenCalledWith(INVALID_COMMAND_MESSAGE);
+    expect(consoleSpy).toHaveBeenLastCalledWith(INVALID_POSITION_MESSAGE);
   });
 
   test(`should output "${NEEDS_PLACE_COMMAND_FIRST}" if ${CommandType.PLACE} command has not been entered before ${CommandType.MOVE} commands is entered`, async () => {
@@ -64,7 +64,7 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenCalledWith(NEEDS_PLACE_COMMAND_FIRST);
+    expect(consoleSpy).toHaveBeenLastCalledWith(NEEDS_PLACE_COMMAND_FIRST);
   });
   test(`should output "${NEEDS_PLACE_COMMAND_FIRST}" if ${CommandType.PLACE} command has not been entered before ${CommandType.LEFT} commands is entered`, async () => {
     setTimeout(() => {
@@ -72,7 +72,7 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenCalledWith(NEEDS_PLACE_COMMAND_FIRST);
+    expect(consoleSpy).toHaveBeenLastCalledWith(NEEDS_PLACE_COMMAND_FIRST);
   });
   test(`should output "${NEEDS_PLACE_COMMAND_FIRST}" if ${CommandType.PLACE} command has not been entered before ${CommandType.RIGHT} commands is entered`, async () => {
     setTimeout(() => {
@@ -80,7 +80,7 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenCalledWith(NEEDS_PLACE_COMMAND_FIRST);
+    expect(consoleSpy).toHaveBeenLastCalledWith(NEEDS_PLACE_COMMAND_FIRST);
   });
   test(`should output "${NEEDS_PLACE_COMMAND_FIRST}" if ${CommandType.PLACE} command has not been entered before ${CommandType.REPORT} commands is entered`, async () => {
     setTimeout(() => {
@@ -88,6 +88,6 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenCalledWith(NEEDS_PLACE_COMMAND_FIRST);
+    expect(consoleSpy).toHaveBeenLastCalledWith(NEEDS_PLACE_COMMAND_FIRST);
   });
 });

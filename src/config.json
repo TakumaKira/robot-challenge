@@ -5,5 +5,5 @@
   "TEST_DATA_DIR": "src/testData",
   "OUTPUT_PREFIX": "Output: ",
   "INVALID_COMMAND_MESSAGE": "The command is invalid.",
-  "INVALID_POSITION_MESSAGE": "The potision is invalid."
+  "INVALID_POSITION_MESSAGE": "The position is invalid."
 }
