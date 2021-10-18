@@ -10,4 +10,12 @@ describe('CommandMove', () => {
     expect(new CommandMove('').execute(new Position(TABLE_SIZE - 1, 0, FaceType.EAST))).toEqual(new Position(TABLE_SIZE - 1, 0, FaceType.EAST));
     expect(new CommandMove('').execute(new Position(0, TABLE_SIZE - 1, FaceType.NORTH))).toEqual(new Position(0, TABLE_SIZE - 1, FaceType.NORTH));
   });
+  test(`execute method should not throw with every valid FaceType`, () => {
+    for (const t of Object.values(FaceType)) {
+      expect(() => {new CommandMove('').execute(new Position(0, 0, t));}).not.toThrow();
+    }
+  });
+  test(`execute method should throw with invalid FaceType`, () => {
+    expect(() => {new CommandMove('').execute(new Position(0, 0, 'A' as FaceType));}).toThrow();
+  });
 });

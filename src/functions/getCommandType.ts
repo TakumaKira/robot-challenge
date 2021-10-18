@@ -1,9 +1,9 @@
 import CommandType from "../constants/commandType";
 
-export default function getCommandType(command: string): CommandType | null {
-  for (const ct of Object.values(CommandType)) {
-    if (command === ct) {
-      return CommandType[ct];
+export default function getCommandType(s: string): CommandType | null {
+  for (const t of Object.values(CommandType)) {
+    if (s === t) {
+      return CommandType[t];
     }
   }
   return null;

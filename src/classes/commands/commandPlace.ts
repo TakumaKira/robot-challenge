@@ -1,6 +1,7 @@
 import { INVALID_COMMAND_MESSAGE } from '../../config.json';
 import CommandType from '../../constants/commandType';
 import FaceType from '../../constants/faceType';
+import getFaceType from '../../functions/getFaceType';
 import findSingleCommand from '../../utils/findSingleCommand';
 import hasNoLetter from '../../utils/hasNoLetter';
 import Position from '../position';
@@ -40,11 +41,7 @@ export default class CommandPlace extends CommandBase<Position> {
       throw new Error(INVALID_COMMAND_MESSAGE);
     }
 
-    let face: FaceType | null = null;
-    if (arg3 === FaceType.NORTH) face = FaceType.NORTH;
-    else if (arg3 === FaceType.SOUTH) face = FaceType.SOUTH;
-    else if (arg3 === FaceType.EAST) face = FaceType.EAST;
-    else if (arg3 === FaceType.WEST) face = FaceType.WEST;
+    let face: FaceType | null = getFaceType(arg3);
     if (face === null) {
       throw new Error(INVALID_COMMAND_MESSAGE);
     }

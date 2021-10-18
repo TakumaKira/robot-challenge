@@ -9,4 +9,12 @@ describe('CommandRight', () => {
     expect(new CommandRight('').execute(new Position(0, 0, FaceType.SOUTH))).toEqual(new Position(0, 0, FaceType.WEST));
     expect(new CommandRight('').execute(new Position(0, 0, FaceType.WEST))).toEqual(new Position(0, 0, FaceType.NORTH));
   });
+  test(`execute method should not throw with every valid FaceType`, () => {
+    for (const t of Object.values(FaceType)) {
+      expect(() => {new CommandRight('').execute(new Position(0, 0, t));}).not.toThrow();
+    }
+  });
+  test(`execute method should throw with invalid FaceType`, () => {
+    expect(() => {new CommandRight('').execute(new Position(0, 0, 'A' as FaceType));}).toThrow();
+  });
 });

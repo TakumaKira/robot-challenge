@@ -1,4 +1,4 @@
-import { INVALID_COMMAND_MESSAGE } from '../../config.json';
+import { INVALID_COMMAND_MESSAGE, INVALID_FACE_TYPE } from '../../config.json';
 import CommandType from '../../constants/commandType';
 import FaceType from '../../constants/faceType';
 import hasNoLetter from "../../utils/hasNoLetter";
@@ -30,6 +30,8 @@ export default class CommandRight extends CommandBase<null> {
       case FaceType.WEST:
         position.f = FaceType.NORTH;
         return position;
+      default:
+        throw new Error(INVALID_FACE_TYPE);
     }
   }
 }
