@@ -1,5 +1,5 @@
 import mockStdin from 'mock-stdin';
-import { INVALID_POSITION_MESSAGE, QUIT_COMMAND, TABLE_SIZE } from './config.json';
+import { INVALID_POSITION_MESSAGE, QUIT_COMMAND, TABLE_WIDTH, TABLE_DEPTH } from './config.json';
 import CommandType from './constants/commandType';
 import FaceType from './constants/faceType';
 import NEEDS_PLACE_COMMAND_FIRST from './constants/needsPlaceCommandFirst';
@@ -42,7 +42,15 @@ describe('run', () => {
 
   test(`should discard first ${CommandType.PLACE} command if it is going to place the robot out of the table`, async () => {
     setTimeout(() => {
-      stdin.send(`${CommandType.PLACE} ${TABLE_SIZE},0,${FaceType.NORTH}\r`);
+      stdin.send(`${CommandType.PLACE} ${TABLE_WIDTH},0,${FaceType.NORTH}\r`);
+      stdin.send(`${QUIT_COMMAND}\r`);
+    });
+    await run();
+    expect(consoleSpy).toHaveBeenLastCalledWith(INVALID_POSITION_MESSAGE);
+  });
+  test(`should discard first ${CommandType.PLACE} command if it is going to place the robot out of the table`, async () => {
+    setTimeout(() => {
+      stdin.send(`${CommandType.PLACE} 0,${TABLE_DEPTH},${FaceType.NORTH}\r`);
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
@@ -51,7 +59,16 @@ describe('run', () => {
   test(`should discard ${CommandType.PLACE} command if it is going to place the robot out of the table`, async () => {
     setTimeout(() => {
       stdin.send(`${CommandType.PLACE} 0,0,${FaceType.NORTH}\r`);
-      stdin.send(`${CommandType.PLACE} ${TABLE_SIZE},0,${FaceType.NORTH}\r`);
+      stdin.send(`${CommandType.PLACE} ${TABLE_WIDTH},0,${FaceType.NORTH}\r`);
+      stdin.send(`${QUIT_COMMAND}\r`);
+    });
+    await run();
+    expect(consoleSpy).toHaveBeenLastCalledWith(INVALID_POSITION_MESSAGE);
+  });
+  test(`should discard ${CommandType.PLACE} command if it is going to place the robot out of the table`, async () => {
+    setTimeout(() => {
+      stdin.send(`${CommandType.PLACE} 0,0,${FaceType.NORTH}\r`);
+      stdin.send(`${CommandType.PLACE} 0,${TABLE_DEPTH},${FaceType.NORTH}\r`);
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();

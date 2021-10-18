@@ -1,4 +1,4 @@
-import { INVALID_POSITION_MESSAGE, TABLE_SIZE } from '../config.json';
+import { INVALID_POSITION_MESSAGE, TABLE_WIDTH, TABLE_DEPTH } from '../config.json';
 import FaceType from "../constants/faceType";
 
 export default class Position {
@@ -12,6 +12,6 @@ export default class Position {
   }
 
   private isValid(): boolean {
-    return this.x >= 0 && this.x < TABLE_SIZE && this.y >= 0 && this.y < TABLE_SIZE;
+    return this.x >= 0 && this.x < TABLE_WIDTH && this.y >= 0 && this.y < TABLE_DEPTH;
   }
 }

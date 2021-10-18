@@ -1,5 +1,6 @@
 {
-  "TABLE_SIZE": 5,
+  "TABLE_WIDTH": 5,
+  "TABLE_DEPTH": 5,
   "QUIT_COMMAND": "q",
   "TEST_DATA_FLAG": "--testData",
   "TEST_DATA_DIR": "src/testData",
