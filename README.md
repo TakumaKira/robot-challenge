@@ -25,6 +25,6 @@ Runs the console app.
 
 Launches the test runner in the watch mode.
 
-### `npm testData`
+### `npm run testData`
 
 Runs all the test data saved in src/testData directory.
