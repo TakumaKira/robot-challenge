@@ -1,9 +1,10 @@
 import mockStdin from 'mock-stdin';
-import { INVALID_POSITION_MESSAGE, QUIT_COMMAND, TABLE_WIDTH, TABLE_DEPTH } from './config.json';
+import Position from './classes/position';
+import { INVALID_POSITION_MESSAGE, QUIT_COMMAND, TABLE_DEPTH, TABLE_WIDTH } from './config.json';
 import CommandType from './constants/commandType';
 import FaceType from './constants/faceType';
 import NEEDS_PLACE_COMMAND_FIRST from './constants/needsPlaceCommandFirst';
-import formatOutput from './functions/outputFormatter';
+import formatPositionOutput from './functions/outputFormatter';
 import run from './run';
 
 describe('run', () => {
@@ -15,7 +16,7 @@ describe('run', () => {
     consoleSpy = jest.spyOn(console, 'log');
   });
 
-  test(`should report ${formatOutput(3, 3, FaceType.NORTH)} after ${CommandType.PLACE} 1,2,${FaceType.EAST} -> ${CommandType.MOVE} -> ${CommandType.MOVE} -> ${CommandType.LEFT} -> ${CommandType.MOVE}`, async () => {
+  test(`should report ${formatPositionOutput(new Position(3, 3, FaceType.NORTH))} after ${CommandType.PLACE} 1,2,${FaceType.EAST} -> ${CommandType.MOVE} -> ${CommandType.MOVE} -> ${CommandType.LEFT} -> ${CommandType.MOVE}`, async () => {
     setTimeout(() => {
       stdin.send(`${CommandType.PLACE} 1,2,${FaceType.EAST}\r`);
       stdin.send(`${CommandType.MOVE}\r`);
@@ -26,10 +27,10 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenLastCalledWith(`${formatOutput(3, 3, FaceType.NORTH)}`);
+    expect(consoleSpy).toHaveBeenLastCalledWith(`${formatPositionOutput(new Position(3, 3, FaceType.NORTH))}`);
   });
 
-  test(`should report ${formatOutput(4, 4, FaceType.SOUTH)} after ${CommandType.PLACE} 0,0,${FaceType.NORTH} -> ${CommandType.PLACE} 4,4,${FaceType.SOUTH}`, async () => {
+  test(`should report ${formatPositionOutput(new Position(4, 4, FaceType.SOUTH))} after ${CommandType.PLACE} 0,0,${FaceType.NORTH} -> ${CommandType.PLACE} 4,4,${FaceType.SOUTH}`, async () => {
     setTimeout(() => {
       stdin.send(`${CommandType.PLACE} 0,0,${FaceType.NORTH}\r`);
       stdin.send(`${CommandType.PLACE} 4,4,${FaceType.SOUTH}\r`);
@@ -37,7 +38,7 @@ describe('run', () => {
       stdin.send(`${QUIT_COMMAND}\r`);
     });
     await run();
-    expect(consoleSpy).toHaveBeenLastCalledWith(`${formatOutput(4, 4, FaceType.SOUTH)}`);
+    expect(consoleSpy).toHaveBeenLastCalledWith(`${formatPositionOutput(new Position(4, 4, FaceType.SOUTH))}`);
   });
 
   test(`should discard first ${CommandType.PLACE} command if it is going to place the robot out of the table`, async () => {

@@ -1,7 +1,7 @@
 import { INVALID_COMMAND_MESSAGE } from '../../config.json';
 import CommandType from '../../constants/commandType';
 import Logger from '../../functions/logger';
-import formatOutput from '../../functions/outputFormatter';
+import formatPositionOutput from '../../functions/outputFormatter';
 import hasNoLetter from '../../utils/hasNoLetter';
 import Position from '../position';
 import CommandBase from "./commandBase";
@@ -18,7 +18,7 @@ export default class CommandReport extends CommandBase<null> {
     return null;
   };
   execute(position: Position): Position {
-    Logger.log(formatOutput(position.x, position.y, position.f));
+    Logger.log(formatPositionOutput(position));
     return position;
   }
 }

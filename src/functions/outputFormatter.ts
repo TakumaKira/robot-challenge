@@ -1,5 +1,5 @@
-import FaceType from "../constants/faceType";
+import Position from "../classes/position";
 
-export default function formatOutput(x: number, y: number, f: FaceType): string {
-  return `${x},${y},${FaceType[f]}`
+export default function formatPositionOutput(position: Position): string {
+  return `${position.x},${position.y},${position.f}`
 }
